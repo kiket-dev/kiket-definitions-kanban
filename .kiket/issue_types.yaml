@@ -1,0 +1,30 @@
+model_version: 1.0
+issue_types:
+  - key: Epic
+    label: Epic
+    allow_children: true
+    color: purple
+    icon: diagram-3
+    position: 0
+    active: true
+  - key: UserStory
+    label: Story
+    allow_children: true
+    color: primary
+    icon: bookmark
+    position: 1
+    active: true
+  - key: Task
+    label: Task
+    allow_children: false
+    color: info
+    icon: check-square
+    position: 2
+    active: true
+  - key: Bug
+    label: Bug
+    allow_children: false
+    color: danger
+    icon: bug
+    position: 3
+    active: true

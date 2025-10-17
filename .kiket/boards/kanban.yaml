@@ -1,0 +1,39 @@
+model_version: 1.0
+board:
+  id: kanban-default
+  name: Kanban Board
+  type: kanban
+  description: Default kanban board mapped to the Kanban workflow.
+  workflow: kanban
+columns:
+  - key: backlog
+    name: Backlog
+    states: [backlog]
+    wip_limit: 25
+    color: secondary
+  - key: in-progress
+    name: In Progress
+    states: [in_progress]
+    wip_limit: 6
+    color: primary
+  - key: review
+    name: Review
+    states: [review]
+    wip_limit: 4
+    color: warning
+  - key: done
+    name: Done
+    states: [done]
+    color: success
+card_template:
+  size: standard
+  fields:
+    primary:
+      - title
+      - assignee
+    secondary:
+      - labels
+      - due_date
+  badges:
+    - type: priority
+    - type: comments_count

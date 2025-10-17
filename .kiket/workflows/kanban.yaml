@@ -1,0 +1,59 @@
+model_version: 1.0
+workflow:
+  id: kanban
+  name: Kanban Flow
+  version: 1.1.0
+  description: Lightweight kanban workflow optimised for continuous delivery.
+
+states:
+  backlog:
+    type: initial
+    category: pending
+    metadata:
+      label: Backlog
+      color: secondary
+      icon: 🗂️
+      description: Work items awaiting prioritisation.
+  in_progress:
+    type: active
+    category: active
+    metadata:
+      label: In Progress
+      color: primary
+      icon: 🔧
+      description: Active development.
+    wip_limit: 6
+  review:
+    type: active
+    category: review
+    metadata:
+      label: Review
+      color: warning
+      icon: 👀
+      description: Awaiting review or QA.
+    wip_limit: 4
+  done:
+    type: final
+    category: completed
+    metadata:
+      label: Done
+      color: success
+      icon: ✅
+      description: Completed work.
+
+transitions:
+  - from: backlog
+    to: in_progress
+    name: Start Work
+  - from: in_progress
+    to: review
+    name: Ready for Review
+  - from: in_progress
+    to: backlog
+    name: Park Item
+  - from: review
+    to: in_progress
+    name: Requires Changes
+  - from: review
+    to: done
+    name: Approve

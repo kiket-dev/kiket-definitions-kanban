@@ -1,0 +1,21 @@
+model_version: 1.0
+template:
+  key: story_ticket
+  name: User Story
+  scope: project
+  defaults:
+    issue_type: UserStory
+    status: backlog
+    priority: medium
+    custom_fields:
+      customer_impact: medium
+  required_fields:
+    - description
+  fields:
+    customer_impact:
+      type: enum
+      label: Customer Impact
+      options: [low, medium, high, critical]
+    acceptance_criteria:
+      type: text
+      label: Acceptance Criteria
