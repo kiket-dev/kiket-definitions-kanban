@@ -1,0 +1,32 @@
+model_version: "1.0"
+recipe:
+  key: sla_breach_escalation
+  name: "SLA Breach Escalation"
+  description: "Escalate high priority work that is within eight hours of its due date."
+  trigger: "issue.updated"
+  conditions:
+    all:
+      - field: "priority"
+        operator: "in"
+        value:
+          - high
+          - critical
+      - field: "hours_until_due"
+        operator: "less_or_equal"
+        value: 8
+      - field: "status"
+        operator: "not_in"
+        value:
+          - done
+  actions:
+    - type: "notify"
+      channel: "teams:incident-response"
+      template: "sla_breach"
+      level: "critical"
+    - type: "request_approval"
+      role: "operations_manager"
+      reason: "Approve mitigation plan for impending SLA breach"
+  metadata:
+    category: "sla"
+    playbook: "sla_breach_v1"
+  requires_approval: true

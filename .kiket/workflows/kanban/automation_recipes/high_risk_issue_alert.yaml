@@ -1,0 +1,29 @@
+model_version: "1.0"
+recipe:
+  key: high_risk_issue_alert
+  name: "High Risk Issue Alert"
+  description: "Escalate when AI analysis flags an issue as high risk despite being in progress."
+  trigger: "issue.updated"
+  conditions:
+    all:
+      - field: "ai_risk_score"
+        operator: "greater_or_equal"
+        value: 0.7
+      - field: "status"
+        operator: "in"
+        value:
+          - in_progress
+          - review
+  actions:
+    - type: "notify"
+      channel: "teams:leadership"
+      template: "high_risk_issue"
+      level: "critical"
+    - type: "request_approval"
+      role: "engineering_manager"
+      reason: "Approve mitigation for AI flagged high risk work"
+  metadata:
+    category: "risk"
+    advisor: "vertex_ai"
+    confidence_threshold: 0.6
+  requires_approval: true

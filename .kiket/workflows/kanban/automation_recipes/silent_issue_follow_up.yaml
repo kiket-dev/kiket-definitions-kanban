@@ -1,0 +1,28 @@
+model_version: "1.0"
+recipe:
+  key: silent_issue_follow_up
+  name: "Silent Issue Follow-up"
+  description: "Ping owners when an in-flight issue has no activity for forty-eight hours."
+  trigger: "issue.updated"
+  conditions:
+    all:
+      - field: "hours_since_last_update"
+        operator: "greater_or_equal"
+        value: 48
+      - field: "status"
+        operator: "in"
+        value:
+          - in_progress
+          - review
+  actions:
+    - type: "notify"
+      channel: "teams:delivery"
+      template: "silent_issue"
+      level: "warning"
+    - type: "assign"
+      to: "current_assignee"
+      fallback: "team_lead"
+  metadata:
+    category: "health"
+    threshold_hours: 48
+  requires_approval: false
