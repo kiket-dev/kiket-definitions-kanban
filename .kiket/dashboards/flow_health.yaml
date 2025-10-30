@@ -1,0 +1,26 @@
+model_version: "1.0"
+dashboard:
+  id: flow-health
+  name: Flow Health
+  description: Visualise throughput and active work for kanban teams.
+  widgets:
+    - id: throughput-trend
+      type: timeseries
+      title: Throughput (Issues Completed)
+      query: project-throughput
+      visualization:
+        x: completed_on
+        y: issues_completed
+        series: project_id
+    - id: cycle-time-alert
+      type: timeseries
+      title: Average Cycle Time
+      query: project-cycle-time
+      visualization:
+        x: completed_on
+        y: avg_cycle_days
+  alerts:
+    - query: project-cycle-time
+      condition: avg_cycle_days > 4
+      notify_roles:
+        - manager
