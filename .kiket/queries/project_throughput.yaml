@@ -1,0 +1,18 @@
+model_version: "1.0"
+query:
+  id: project-throughput
+  name: Project Throughput Trend
+  description: Issues completed per day, sourced from the analytics throughput mart.
+  engine: sql
+  statement: |
+    SELECT
+      completed_on,
+      issues_completed
+    FROM analytics_org_${project.slug}.fct_throughput
+    WHERE project_id = :project_id
+    ORDER BY completed_on;
+  parameters:
+    - name: project_id
+      type: integer
+      required: true
+      description: Project identifier used to filter throughput.

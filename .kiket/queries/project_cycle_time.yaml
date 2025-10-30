@@ -1,0 +1,18 @@
+model_version: "1.0"
+query:
+  id: project-cycle-time
+  name: Project Cycle Time Trend
+  description: Daily average cycle time values for the project, sourced from the analytics marts.
+  engine: sql
+  statement: |
+    SELECT
+      completed_on,
+      avg_cycle_days
+    FROM analytics_org_${project.slug}.fct_cycle_time
+    WHERE project_id = :project_id
+    ORDER BY completed_on;
+  parameters:
+    - name: project_id
+      type: integer
+      required: true
+      description: Project identifier used to filter the facts.
