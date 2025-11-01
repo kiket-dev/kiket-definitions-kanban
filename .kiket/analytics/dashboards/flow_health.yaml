@@ -1,0 +1,104 @@
+model_version: "1.0"
+dashboard:
+  id: flow-health
+  name: Flow Health
+  description: Visualise throughput, cycle time, and activity for kanban teams backed by dbt analytics.
+  widgets:
+    - id: throughput-window
+      type: kpi
+      title: Issues Completed (Last 14 Days)
+      query: fct_throughput
+      query_config:
+        model: fct_throughput
+        parameters:
+          - name: project_id
+            type: integer
+            required: true
+        filters:
+          project_id: ":project_id"
+        order_by:
+          - completed_on
+      options:
+        window: 14d
+    - id: throughput-trend
+      type: timeseries
+      title: Throughput (Issues Completed)
+      query: fct_throughput
+      query_config:
+        model: fct_throughput
+        parameters:
+          - name: project_id
+            type: integer
+            required: true
+        filters:
+          project_id: ":project_id"
+        order_by:
+          - completed_on
+      visualization:
+        x: completed_on
+        y: issues_completed
+        series: project_id
+    - id: cycle-time-alert
+      type: timeseries
+      title: Average Cycle Time
+      query: fct_cycle_time
+      query_config:
+        model: fct_cycle_time
+        parameters:
+          - name: project_id
+            type: integer
+            required: true
+        filters:
+          project_id: ":project_id"
+        order_by:
+          - completed_on
+      visualization:
+        x: completed_on
+        y: avg_cycle_days
+    - id: usage-activity-table
+      type: table
+      title: Usage Activity (Last 14 Days)
+      query: fct_usage_events
+      query_config:
+        model: fct_usage_events
+        parameters:
+          - name: project_id
+            type: integer
+            required: true
+        filters:
+          project_id: ":project_id"
+        select:
+          - recorded_on
+          - metric
+          - total_quantity
+        order_by:
+          - recorded_on DESC
+        limit: 14
+  alerts:
+    - query: fct_cycle_time
+      query_config:
+        model: fct_cycle_time
+        parameters:
+          - name: project_id
+            type: integer
+            required: true
+        filters:
+          project_id: ":project_id"
+      condition: avg_cycle_days > 4
+      notify_roles:
+        - manager
+    - query: fct_throughput
+      query_config:
+        model: fct_throughput
+        parameters:
+          - name: project_id
+            type: integer
+            required: true
+        filters:
+          project_id: ":project_id"
+        order_by:
+          - completed_on DESC
+        limit: 7
+      condition: issues_completed < 3
+      notify_roles:
+        - manager

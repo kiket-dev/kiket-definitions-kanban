@@ -1,0 +1,22 @@
+version: 2
+
+exposures:
+  - name: flow_health_dashboard
+    type: dashboard
+    maturity: low
+    url: https://app.kiket.dev/projects/{{ project_slug }}/dashboards/flow-health
+    description: |
+      Flow health dashboard delivered with the kanban template. Tracks throughput,
+      cycle time, and usage activity via shared dbt marts (`fct_throughput`,
+      `fct_cycle_time`, `fct_usage_events`).
+    owner:
+      name: Template Analytics
+      email: analytics@kiket.dev
+    depends_on:
+      - ref('fct_throughput')
+      - ref('fct_cycle_time')
+      - ref('fct_usage_events')
+    tags:
+      - kanban
+      - dashboard
+      - analytics
