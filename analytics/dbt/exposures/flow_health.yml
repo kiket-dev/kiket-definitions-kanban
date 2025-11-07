@@ -4,7 +4,7 @@ exposures:
   - name: flow_health_dashboard
     type: dashboard
     maturity: low
-    url: https://app.kiket.dev/projects/{{ project_slug }}/dashboards/flow-health
+    url: https://kiket.dev/projects/{{ project_slug }}/dashboards/flow-health
     description: |
       Flow health dashboard delivered with the kanban template. Tracks throughput,
       cycle time, and usage activity via shared dbt marts (`fct_throughput`,
