@@ -1,0 +1,112 @@
+model_version: "1.0"
+dashboard:
+  id: epic-rollup
+  name: Epic Rollup Health
+  description: Track epic-level progress via story points, completion ratio, and guardrail signals derived from hierarchy metadata.
+  widgets:
+    - id: epic-progress-table
+      type: table
+      title: Epic Progress Overview
+      query: fct_epic_rollups
+      query_config:
+        model: fct_epic_rollups
+        parameters:
+          - name: project_id
+            type: integer
+            required: true
+        filters:
+          project_id: ":project_id"
+        select:
+          - epic_title
+          - epic_status
+          - child_count
+          - total_story_points
+          - completed_story_points
+          - completion_ratio
+          - overdue_child_count
+          - blocked_child_count
+          - guardrail_status
+        order_by:
+          - guardrail_status DESC
+          - completion_ratio DESC
+    - id: guardrail-status-bar
+      type: bar
+      title: Guardrail Status Distribution
+      query: fct_epic_rollups
+      query_config:
+        model: fct_epic_rollups
+        parameters:
+          - name: project_id
+            type: integer
+            required: true
+        filters:
+          project_id: ":project_id"
+        group_by:
+          - guardrail_status
+        aggregates:
+          total_epics: "count(epic_id)"
+      visualization:
+        x: guardrail_status
+        y: total_epics
+    - id: risk-log
+      type: table
+      title: Epics Requiring Attention
+      query: fct_epic_rollups
+      query_config:
+        model: fct_epic_rollups
+        parameters:
+          - name: project_id
+            type: integer
+            required: true
+        filters:
+          project_id: ":project_id"
+          guardrail_status:
+            operator: not_in
+            value:
+              - on_track
+              - unscoped
+        select:
+          - epic_title
+          - guardrail_status
+          - guardrail_reason
+          - overdue_child_count
+          - blocked_child_count
+          - completion_ratio
+        order_by:
+          - guardrail_status DESC
+          - completion_ratio ASC
+  alerts:
+    - query: fct_epic_rollups
+      query_config:
+        model: fct_epic_rollups
+        parameters:
+          - name: project_id
+            type: integer
+            required: true
+        filters:
+          project_id: ":project_id"
+          guardrail_status:
+            operator: in
+            value:
+              - overdue
+              - blocked
+      condition: total_story_points > 0
+      notify_roles:
+        - manager
+        - product_manager
+    - query: fct_epic_rollups
+      query_config:
+        model: fct_epic_rollups
+        parameters:
+          - name: project_id
+            type: integer
+            required: true
+        filters:
+          project_id: ":project_id"
+          guardrail_status:
+            operator: equals
+            value: stalled
+      condition: completion_ratio < 0.5
+      notify_roles:
+        - manager
+        - scrum_master

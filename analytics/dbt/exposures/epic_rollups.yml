@@ -1,0 +1,19 @@
+version: 2
+
+exposures:
+  - name: kanban_epic_rollup_dashboard
+    type: dashboard
+    maturity: low
+    url: https://kiket.dev/projects/{{ project_slug }}/dashboards/epic-rollup
+    description: |
+      Epic roll-up dashboard surfaces story point progress, completion ratios, and
+      guardrail signals (blocked/overdue/stalled) derived from `fct_epic_rollups`.
+    owner:
+      name: Template Analytics
+      email: analytics@kiket.dev
+    depends_on:
+      - ref('fct_epic_rollups')
+    tags:
+      - kanban
+      - dashboard
+      - epic
