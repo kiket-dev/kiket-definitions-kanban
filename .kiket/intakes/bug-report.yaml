@@ -1,0 +1,103 @@
+# Bug Report Intake Form
+# Public form for users to submit bug reports
+
+model_version: "1.0"
+
+intake_form:
+  key: bug-report
+  name: Bug Report
+  slug: bug-report
+  description: Report a bug or issue you've encountered
+
+  settings:
+    public: true
+    captcha_enabled: true
+    rate_limit: 10
+    requires_approval: false
+    default_issue_type: bug
+    default_priority: medium
+    confirmation_message: |
+      Thank you for reporting this bug! Our team will investigate
+      and get back to you if we need more information.
+
+  fields:
+    - key: title
+      type: string
+      label: Bug Title
+      required: true
+      placeholder: Brief description of the bug
+      maps_to: title
+
+    - key: severity
+      type: enum
+      label: Severity
+      required: true
+      options:
+        values:
+          - value: critical
+            label: Critical - System unusable
+          - value: high
+            label: High - Major feature broken
+          - value: medium
+            label: Medium - Feature partially working
+          - value: low
+            label: Low - Minor issue
+
+    - key: steps_to_reproduce
+      type: text
+      label: Steps to Reproduce
+      required: true
+      placeholder: |
+        1. Go to...
+        2. Click on...
+        3. Observe...
+      helper_text: Please provide detailed steps to reproduce the issue
+
+    - key: expected_behavior
+      type: text
+      label: Expected Behavior
+      required: true
+      placeholder: What should have happened?
+
+    - key: actual_behavior
+      type: text
+      label: Actual Behavior
+      required: true
+      placeholder: What actually happened?
+      maps_to: description
+
+    - key: environment
+      type: enum
+      label: Environment
+      required: false
+      options:
+        values:
+          - value: production
+            label: Production
+          - value: staging
+            label: Staging
+          - value: development
+            label: Development
+
+    - key: browser
+      type: string
+      label: Browser / Device
+      required: false
+      placeholder: e.g., Chrome 120, iPhone 15
+
+    - key: screenshot
+      type: file
+      label: Screenshot
+      required: false
+      helper_text: Attach a screenshot if helpful
+      options:
+        allowed_types:
+          - image/*
+        max_size_mb: 5
+
+    - key: email
+      type: email
+      label: Your Email
+      required: false
+      placeholder: you@example.com
+      helper_text: Optional - we'll contact you if we need more info

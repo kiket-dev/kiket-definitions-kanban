@@ -1,0 +1,84 @@
+# Feature Request Intake Form
+# Public form for users to submit feature requests
+
+model_version: "1.0"
+
+intake_form:
+  key: feature-request
+  name: Feature Request
+  slug: feature-request
+  description: Suggest a new feature or improvement
+
+  settings:
+    public: true
+    captcha_enabled: true
+    rate_limit: 10
+    requires_approval: false
+    default_issue_type: feature
+    default_priority: medium
+    confirmation_message: |
+      Thank you for your suggestion! We review all feature requests
+      and prioritize based on community feedback.
+
+  fields:
+    - key: title
+      type: string
+      label: Feature Title
+      required: true
+      placeholder: Brief description of the feature
+      maps_to: title
+
+    - key: problem
+      type: text
+      label: Problem to Solve
+      required: true
+      placeholder: What problem does this feature solve?
+      helper_text: Help us understand the pain point
+
+    - key: solution
+      type: text
+      label: Proposed Solution
+      required: true
+      placeholder: How would you like this to work?
+      maps_to: description
+
+    - key: alternatives
+      type: text
+      label: Alternatives Considered
+      required: false
+      placeholder: Have you tried any workarounds?
+
+    - key: impact
+      type: enum
+      label: Business Impact
+      required: false
+      options:
+        values:
+          - value: critical
+            label: Critical - Blocking our adoption
+          - value: high
+            label: High - Would significantly improve our workflow
+          - value: medium
+            label: Medium - Nice to have
+          - value: low
+            label: Low - Minor improvement
+
+    - key: use_case
+      type: enum
+      label: Use Case
+      required: false
+      options:
+        values:
+          - value: personal
+            label: Personal use
+          - value: team
+            label: Team collaboration
+          - value: enterprise
+            label: Enterprise deployment
+
+    - key: email
+      type: email
+      label: Your Email
+      required: false
+      placeholder: you@example.com
+      helper_text: Optional - we may reach out for more details
