@@ -32,6 +32,22 @@ states:
       icon: 👀
       description: Awaiting review or QA.
     wip_limit: 4
+    sla:
+      warning: 24h
+      breach: 72h
+      business_hours: true
+      on_warning:
+        - action: notify
+          recipients:
+            user: assignee
+          message: "⚠️ {{issue.title}} has been in Review for 24h"
+      on_breach:
+        - action: notify
+          recipients:
+            user: assignee
+            roles: [manager]
+          message: "🚨 Review SLA breached: {{issue.title}} exceeded 72h"
+          level: critical
   done:
     type: final
     category: completed
