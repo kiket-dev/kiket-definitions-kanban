@@ -1,0 +1,57 @@
+---
+model_version: '1.0'
+workflow:
+  id: platform_v2_0
+  name: Platform v2.0
+states:
+  to_do:
+    type: initial
+    category: pending
+    metadata:
+      label: To Do
+      color: secondary
+      icon: ''
+  in_progress:
+    type: active
+    category: active
+    metadata:
+      label: In Progress
+      color: primary
+      icon: ''
+    wip_limit: 5
+  code_review:
+    type: active
+    category: active
+    metadata:
+      label: Code Review
+      color: info
+      icon: ''
+    wip_limit: 3
+  testing:
+    type: active
+    category: active
+    metadata:
+      label: Testing
+      color: warning
+      icon: ''
+    wip_limit: 3
+  done:
+    type: final
+    category: completed
+    metadata:
+      label: Done
+      color: success
+      icon: ''
+transitions:
+- from: to_do
+  to: in_progress
+  name: Move to In Progress
+- from: in_progress
+  to: code_review
+  name: Move to Code Review
+- from: code_review
+  to: testing
+  name: Move to Testing
+- from: testing
+  to: done
+  name: Move to Done
