@@ -3,7 +3,7 @@ recipe:
   key: sla_breach_escalation
   name: "SLA Breach Escalation"
   description: "Escalate high priority work that is within eight hours of its due date."
-  trigger: "issue.updated"
+  trigger: "case.updated"
   conditions:
     all:
       - field: "priority"

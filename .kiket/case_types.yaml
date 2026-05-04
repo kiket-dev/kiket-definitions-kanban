@@ -1,5 +1,5 @@
 model_version: 1.0
-issue_types:
+case_types:
   - key: Epic
     label: Epic
     allow_children: true

@@ -24,7 +24,7 @@ project:
     issues:
       - title: Migrate user sessions to Redis-backed store
         description: Current in-memory sessions don't survive deploys. Switch to Redis to support zero-downtime deployments.
-        issue_type: UserStory
+        case_type: UserStory
         status: in_progress
         priority: high
         labels:
@@ -33,7 +33,7 @@ project:
 
       - title: Fix timezone offset in activity feed timestamps
         description: Users in UTC-negative timezones see future-dated entries in their activity feed.
-        issue_type: Bug
+        case_type: Bug
         status: review
         priority: medium
         labels:
@@ -42,7 +42,7 @@ project:
 
       - title: Add bulk archive action to project list
         description: Allow users to select multiple projects and archive them in one operation from the dashboard.
-        issue_type: UserStory
+        case_type: UserStory
         status: backlog
         priority: low
         labels:
@@ -51,7 +51,7 @@ project:
 
       - title: Evaluate OpenTelemetry collector for trace aggregation
         description: Current tracing setup sends directly to Cloud Trace. Investigate whether an OTel collector improves batching and reduces costs.
-        issue_type: Task
+        case_type: Task
         status: backlog
         priority: medium
         labels:
@@ -60,7 +60,7 @@ project:
 
       - title: Implement webhook retry with exponential backoff
         description: Failed webhook deliveries are currently dropped. Add a retry queue with exponential backoff and dead-letter logging.
-        issue_type: UserStory
+        case_type: UserStory
         status: in_progress
         priority: high
         labels:
@@ -69,7 +69,7 @@ project:
 
       - title: Dashboard charts render blank on Safari 16
         description: The analytics dashboard charts fail to render on Safari 16 due to a ResizeObserver loop error.
-        issue_type: Bug
+        case_type: Bug
         status: review
         priority: critical
         labels:

@@ -3,7 +3,7 @@ recipe:
   key: silent_issue_follow_up
   name: "Silent Issue Follow-up"
   description: "Ping owners when an in-flight issue has no activity for forty-eight hours."
-  trigger: "issue.updated"
+  trigger: "case.updated"
   conditions:
     all:
       - field: "hours_since_last_update"

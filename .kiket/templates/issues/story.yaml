@@ -4,7 +4,7 @@ template:
   name: User Story
   scope: project
   defaults:
-    issue_type: UserStory
+    case_type: UserStory
     status: backlog
     priority: medium
     custom_fields:
