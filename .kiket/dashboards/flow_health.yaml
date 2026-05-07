@@ -11,11 +11,11 @@ dashboard:
       query_config:
         model: fct_throughput
         parameters:
-          - name: project_id
+          - name: workspace_id
             type: integer
             required: true
         filters:
-          project_id: ":project_id"
+          workspace_id: ":workspace_id"
         order_by:
           - completed_on
       options:
@@ -27,17 +27,17 @@ dashboard:
       query_config:
         model: fct_throughput
         parameters:
-          - name: project_id
+          - name: workspace_id
             type: integer
             required: true
         filters:
-          project_id: ":project_id"
+          workspace_id: ":workspace_id"
         order_by:
           - completed_on
       visualization:
         x: completed_on
         y: issues_completed
-        series: project_id
+        series: workspace_id
     - id: cycle-time-alert
       type: timeseries
       title: Average Cycle Time
@@ -45,11 +45,11 @@ dashboard:
       query_config:
         model: fct_cycle_time
         parameters:
-          - name: project_id
+          - name: workspace_id
             type: integer
             required: true
         filters:
-          project_id: ":project_id"
+          workspace_id: ":workspace_id"
         order_by:
           - completed_on
       visualization:
@@ -62,11 +62,11 @@ dashboard:
       query_config:
         model: fct_usage_events
         parameters:
-          - name: project_id
+          - name: workspace_id
             type: integer
             required: true
         filters:
-          project_id: ":project_id"
+          workspace_id: ":workspace_id"
         select:
           - recorded_on
           - metric
@@ -79,11 +79,11 @@ dashboard:
       query_config:
         model: fct_cycle_time
         parameters:
-          - name: project_id
+          - name: workspace_id
             type: integer
             required: true
         filters:
-          project_id: ":project_id"
+          workspace_id: ":workspace_id"
       condition: avg_cycle_days > 4
       notify_roles:
         - manager
@@ -91,11 +91,11 @@ dashboard:
       query_config:
         model: fct_throughput
         parameters:
-          - name: project_id
+          - name: workspace_id
             type: integer
             required: true
         filters:
-          project_id: ":project_id"
+          workspace_id: ":workspace_id"
         order_by:
           - completed_on DESC
         limit: 7

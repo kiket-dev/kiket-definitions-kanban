@@ -1,8 +1,8 @@
 model_version: "1.0"
 recipe:
-  key: silent_issue_follow_up
-  name: "Silent Issue Follow-up"
-  description: "Ping owners when an in-flight issue has no activity for forty-eight hours."
+  key: silent_case_follow_up
+  name: "Silent Case Follow-up"
+  description: "Ping owners when an in-flight case has no activity for forty-eight hours."
   trigger: "case.updated"
   conditions:
     all:
@@ -17,7 +17,7 @@ recipe:
   actions:
     - type: "notify"
       channel: "teams:delivery"
-      template: "silent_issue"
+      template: "silent_case"
       level: "warning"
     - type: "assign"
       to: "current_assignee"

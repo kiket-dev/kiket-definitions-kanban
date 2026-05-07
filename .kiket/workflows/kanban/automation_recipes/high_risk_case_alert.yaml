@@ -1,8 +1,8 @@
 model_version: "1.0"
 recipe:
-  key: high_risk_issue_alert
-  name: "High Risk Issue Alert"
-  description: "Escalate when AI analysis flags an issue as high risk despite being in progress."
+  key: high_risk_case_alert
+  name: "High Risk Case Alert"
+  description: "Escalate when AI analysis flags a case as high risk despite being in progress."
   trigger: "case.updated"
   conditions:
     all:
@@ -17,7 +17,7 @@ recipe:
   actions:
     - type: "notify"
       channel: "teams:leadership"
-      template: "high_risk_issue"
+      template: "high_risk_case"
       level: "critical"
     - type: "request_approval"
       role: "engineering_manager"

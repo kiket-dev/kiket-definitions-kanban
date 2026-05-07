@@ -5,7 +5,7 @@ Standard Kanban definitions for Kiket.
 
 This template now ships dbt-powered analytics assets:
 
-- `.kiket/analytics/dashboards/` – Flow health dashboards consumed by the app.
+- `.kiket/dashboards/` – Flow health dashboards consumed by the app.
 - `analytics/dbt/exposures/` – dbt exposure metadata referencing the shared marts so docs builds include the dashboard.
 
 - `flow_health.yaml` – flow efficiency dashboard with cycle-time/throughput trends and usage activity table.

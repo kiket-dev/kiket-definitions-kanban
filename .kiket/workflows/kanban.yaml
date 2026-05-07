@@ -12,7 +12,7 @@ states:
     metadata:
       label: Backlog
       color: secondary
-      icon: 🗂️
+      icon: folder-open
       description: Work items awaiting prioritisation.
   in_progress:
     type: active
@@ -20,7 +20,7 @@ states:
     metadata:
       label: In Progress
       color: primary
-      icon: 🔧
+      icon: wrench
       description: Active development.
     wip_limit: 6
   review:
@@ -29,7 +29,7 @@ states:
     metadata:
       label: Review
       color: warning
-      icon: 👀
+      icon: eye
       description: Awaiting review or QA.
     wip_limit: 4
     sla:
@@ -40,13 +40,13 @@ states:
         - action: notify
           recipients:
             user: assignee
-          message: "⚠️ {{issue.title}} has been in Review for 24h"
+          message: "{{case.title}} has been in Review for 24h"
       on_breach:
         - action: notify
           recipients:
             user: assignee
             roles: [manager]
-          message: "🚨 Review SLA breached: {{issue.title}} exceeded 72h"
+          message: "Review SLA breached: {{case.title}} exceeded 72h"
           level: critical
   done:
     type: final
@@ -54,7 +54,7 @@ states:
     metadata:
       label: Done
       color: success
-      icon: ✅
+      icon: circle-check
       description: Completed work.
 
 transitions:

@@ -11,11 +11,11 @@ dashboard:
       query_config:
         model: fct_epic_rollups
         parameters:
-          - name: project_id
+          - name: workspace_id
             type: integer
             required: true
         filters:
-          project_id: ":project_id"
+          workspace_id: ":workspace_id"
         select:
           - epic_title
           - epic_status
@@ -36,11 +36,11 @@ dashboard:
       query_config:
         model: fct_epic_rollups
         parameters:
-          - name: project_id
+          - name: workspace_id
             type: integer
             required: true
         filters:
-          project_id: ":project_id"
+          workspace_id: ":workspace_id"
         group_by:
           - guardrail_status
         aggregates:
@@ -55,11 +55,11 @@ dashboard:
       query_config:
         model: fct_epic_rollups
         parameters:
-          - name: project_id
+          - name: workspace_id
             type: integer
             required: true
         filters:
-          project_id: ":project_id"
+          workspace_id: ":workspace_id"
           guardrail_status:
             operator: not_in
             value:
@@ -80,11 +80,11 @@ dashboard:
       query_config:
         model: fct_epic_rollups
         parameters:
-          - name: project_id
+          - name: workspace_id
             type: integer
             required: true
         filters:
-          project_id: ":project_id"
+          workspace_id: ":workspace_id"
           guardrail_status:
             operator: in
             value:
@@ -98,11 +98,11 @@ dashboard:
       query_config:
         model: fct_epic_rollups
         parameters:
-          - name: project_id
+          - name: workspace_id
             type: integer
             required: true
         filters:
-          project_id: ":project_id"
+          workspace_id: ":workspace_id"
           guardrail_status:
             operator: equals
             value: stalled

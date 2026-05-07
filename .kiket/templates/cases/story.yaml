@@ -2,7 +2,7 @@ model_version: 1.0
 template:
   key: story_ticket
   name: User Story
-  scope: project
+  scope: workspace
   defaults:
     case_type: UserStory
     status: backlog
